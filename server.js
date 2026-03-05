@@ -1,7 +1,12 @@
 // server.js
+
+require('dotenv').config(); // Load environment variables
+
 const express = require('express');
 const app = express();
-const PORT = 3000;
+
+// Use PORT from .env or fallback to 3000
+const PORT = process.env.PORT || 3000;
 
 // Import task routes
 const taskRoutes = require('./routes/taskRoutes');
