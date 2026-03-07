@@ -1,12 +1,34 @@
-
-
-
 # Task Manager API
 
-A simple RESTful API built with Node.js, Express, and PostgreSQL to manage tasks.
+A RESTful API built with Node.js, Express, and PostgreSQL for managing tasks.
+The API supports creating, retrieving, updating, and deleting tasks while demonstrating a clean backend architecture with controllers, routes, middleware, and database modules.
 
-```## Project Structure
+---
 
+## Features
+
+* Create tasks
+* Retrieve all tasks
+* Update tasks
+* Delete tasks
+* PostgreSQL database integration
+* Centralized error handling middleware
+* Environment variable configuration using dotenv
+
+---
+
+## Tech Stack
+
+* **Node.js**
+* **Express.js**
+* **PostgreSQL**
+* **dotenv**
+
+---
+
+## Project Structure
+
+```
 task-manager-api
 │
 ├── controllers
@@ -25,66 +47,153 @@ task-manager-api
 ├── package.json
 ├── .env
 └── README.md
+```
 
-## Features
+---
 
-- Create tasks
-- Retrieve all tasks
-- Update tasks
-- Delete tasks
-- PostgreSQL database integration
-- Centralized error handling middleware
-- Environment variables using dotenv
+## Architecture
 
-## Tech Stack
+The application follows a modular backend structure:
 
-- Node.js
-- Express.js
-- PostgreSQL
-- dotenv
+* **Routes** define the API endpoints.
+* **Controllers** contain the request handling logic.
+* **Database module** manages PostgreSQL connections and queries.
+* **Middleware** provides centralized error handling.
+* **Server** initializes the Express application and registers routes.
+
+This structure improves maintainability and separation of concerns.
+
+---
 
 ## API Endpoints
 
-GET /tasks  
-Retrieve all tasks
+### Get All Tasks
 
-POST /tasks  
-Create a new task
+```
+GET /tasks
+```
 
-PUT /tasks/:id  
-Update a task
+Example Response
 
-DELETE /tasks/:id  
-Delete a task
+```json
+[
+  {
+    "id": 1,
+    "title": "Learn Node.js",
+    "completed": false
+  }
+]
+```
 
-## Setup
+---
 
-Clone the repository
+### Create Task
 
-git clone <repo-url>
+```
+POST /tasks
+```
 
-Install dependencies
+Request Body
 
+```json
+{
+  "title": "Learn Express",
+  "completed": false
+}
+```
+
+Example Response
+
+```json
+{
+  "id": 2,
+  "title": "Learn Express",
+  "completed": false
+}
+```
+
+---
+
+### Update Task
+
+```
+PUT /tasks/:id
+```
+
+Request Body
+
+```json
+{
+  "title": "Learn PostgreSQL",
+  "completed": true
+}
+```
+
+---
+
+### Delete Task
+
+```
+DELETE /tasks/:id
+```
+
+---
+
+## Setup and Installation
+
+### 1. Clone the repository
+
+```
+git clone <repository-url>
+```
+
+### 2. Navigate to the project folder
+
+```
+cd task-manager-api
+```
+
+### 3. Install dependencies
+
+```
 npm install
+```
 
-Create a `.env` file
+### 4. Create a `.env` file
 
-PORT=3000  
-DB_USER=your_user  
-DB_PASSWORD=your_password  
-DB_NAME=your_db  
-DB_PORT=5432  
+```
+PORT=3000
+DB_USER=your_user
+DB_PASSWORD=your_password
+DB_NAME=your_database
+DB_PORT=5432
+```
 
-Run the server
+### 5. Start the server
 
+```
 node server.js
+```
 
-## Learning Notes
+The API will run on:
 
-This project helped me understand:
+```
+http://localhost:3000
+```
 
-- REST API structure
-- Async/await with database queries
-- PostgreSQL integration with Node.js
-- Middleware and centralized error handling
-- Debugging database connection issues
+---
+
+## Future Improvements
+
+* Add JWT authentication
+* Add request validation
+* Implement pagination for task lists
+* Add API documentation using Swagger
+* Add automated tests using Jest
+* Containerize the application with Docker
+
+---
+
+## Author
+
+GitHub: https://github.com/Vrishali34
