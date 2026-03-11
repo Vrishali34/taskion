@@ -11,6 +11,9 @@ const PORT = process.env.PORT || 3000;
 // Import task routes
 const taskRoutes = require('./routes/taskRoutes');
 
+// Import auth routes
+const authRoutes = require('./routes/authRoutes');
+
 // Import global error handler
 const errorHandler = require('./middleware/errorHandler');
 
@@ -27,6 +30,9 @@ app.get('/', (req, res) => {
 
 // Mount task routes
 app.use('/tasks', taskRoutes);
+
+// Mount auth routes
+app.use('/auth', authRoutes);
 
 // Global error middleware (must be after routes)
 app.use(errorHandler);
