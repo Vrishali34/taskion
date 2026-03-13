@@ -16,7 +16,11 @@ The project demonstrates a clean backend architecture using controllers, routes,
 - Retrieve user tasks
 - Update tasks
 - Delete tasks
+- Pagination for task retrieval
+- Filtering tasks by completion status
+- Sorting tasks by fields (id, title, completed)
 - PostgreSQL database integration
+- Swagger API documentation
 - Centralized error handling middleware
 - Environment variable configuration using dotenv
 
@@ -143,20 +147,35 @@ Authorization: Bearer <token>
 
 ## Get All Tasks
 
+Get All Tasks (with Pagination, Filtering, and Sorting)
+
 GET /tasks
+
+Query Parameters
+
+page       Page number (default: 1)
+limit      Number of tasks per page (default: 10)
+completed  Filter tasks by completion status (true or false)
+sort       Field to sort by (id, title, completed)
+order      Sort order (asc or desc)
 
 Example Request
 
-```bash
-curl http://localhost:5000/tasks \
+curl "http://localhost:5000/tasks?page=1&limit=2&completed=false&sort=id&order=desc" \
 -H "Authorization: Bearer YOUR_TOKEN"
-```
 
 Example Response
 
-```json
 {
   "status": "success",
+  "page": 1,
+  "limit": 2,
+  "totalTasks": 5,
+  "totalPages": 3,
+  "hasNextPage": true,
+  "hasPreviousPage": false,
+  "sort": "id",
+  "order": "desc",
   "data": [
     {
       "id": 1,
@@ -166,7 +185,6 @@ Example Response
     }
   ]
 }
-```
 
 ---
 
@@ -270,12 +288,11 @@ http://localhost:5000/api-docs
 
 # Future Improvements
 
-* Add request validation
-* Implement pagination for tasks
+* Add request validation using Joi
 * Add automated tests using Jest
+* Implement cursor-based pagination for large datasets
 * Containerize the application with Docker
 * Add logging and monitoring
-
 ---
 
 # Author
