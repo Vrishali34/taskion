@@ -1,3 +1,4 @@
+// docs/swagger.js
 const swaggerJSDoc = require('swagger-jsdoc');
 
 const options = {
@@ -6,11 +7,17 @@ const options = {
     info: {
       title: 'Task Manager API',
       version: '1.0.0',
-      description: 'A RESTful API for managing tasks with JWT authentication'
+      description: `A secure RESTful API for managing personal tasks.
+      
+Features: JWT authentication, Joi request validation, pagination, filtering, and sorting.
+
+All task endpoints require a Bearer token in the Authorization header.
+Get your token by logging in via POST /auth/login.`
     },
     servers: [
       {
-        url: 'http://localhost:5000'
+        url: 'http://localhost:5000',
+        description: 'Local development server'
       }
     ],
     components: {
