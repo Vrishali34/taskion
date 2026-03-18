@@ -1,3 +1,4 @@
+// controllers/taskController.js
 const pool = require('../config/db');
 
 // GET all tasks for logged-in user with pagination + metadata + filtering + sorting
@@ -13,7 +14,6 @@ const getTasks = async (req, res, next) => {
     // Sorting parameters
     const sort = req.query.sort || 'id';
     const order = req.query.order === 'desc' ? 'DESC' : 'ASC';
-
     const offset = (page - 1) * limit;
 
     // Allowed fields for sorting (security)
@@ -32,7 +32,6 @@ const getTasks = async (req, res, next) => {
     // 1️⃣ Get total number of tasks (with filter applied)
     const countQuery = `SELECT COUNT(*) FROM tasks ${filterQuery}`;
     const countResult = await pool.query(countQuery, queryParams);
-
     const totalTasks = parseInt(countResult.rows[0].count);
     const totalPages = Math.ceil(totalTasks / limit);
 
@@ -62,24 +61,17 @@ const getTasks = async (req, res, next) => {
       order: order.toLowerCase(),
       data: result.rows
     });
-
   } catch (err) {
     next(err);
   }
 };
 
-
 // CREATE task for logged-in user
+// Note: title validation is handled by validateMiddleware + createTaskSchema
 const createTask = async (req, res, next) => {
   try {
     const { title } = req.body;
     const userId = req.user.userId;
-
-    if (!title) {
-      const error = new Error('Title is required');
-      error.statusCode = 400;
-      return next(error);
-    }
 
     const result = await pool.query(
       'INSERT INTO tasks (title, user_id) VALUES ($1, $2) RETURNING *',
@@ -90,12 +82,10 @@ const createTask = async (req, res, next) => {
       status: 'success',
       data: result.rows[0]
     });
-
   } catch (err) {
     next(err);
   }
 };
-
 
 // UPDATE task (only if it belongs to logged-in user)
 const updateTask = async (req, res, next) => {
@@ -123,12 +113,10 @@ const updateTask = async (req, res, next) => {
       status: 'success',
       data: result.rows[0]
     });
-
   } catch (err) {
     next(err);
   }
 };
-
 
 // DELETE task (only if it belongs to logged-in user)
 const deleteTask = async (req, res, next) => {
@@ -151,12 +139,10 @@ const deleteTask = async (req, res, next) => {
       status: 'success',
       data: result.rows[0]
     });
-
   } catch (err) {
     next(err);
   }
 };
-
 
 module.exports = {
   getTasks,

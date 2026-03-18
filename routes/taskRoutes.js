@@ -1,11 +1,10 @@
 // routes/taskRoutes.js
-
 const express = require('express');
 const router = express.Router();
-
 const taskController = require('../controllers/taskController');
 const authenticateToken = require('../middleware/authMiddleware');
-
+const validate = require('../middleware/validateMiddleware');
+const { createTaskSchema, updateTaskSchema } = require('../validators/taskValidator');
 
 /**
  * @swagger
@@ -20,44 +19,34 @@ const authenticateToken = require('../middleware/authMiddleware');
  *     parameters:
  *       - in: query
  *         name: page
- *         required: false
  *         schema:
  *           type: integer
  *           example: 1
  *         description: Page number for pagination
- *
  *       - in: query
  *         name: limit
- *         required: false
  *         schema:
  *           type: integer
  *           example: 10
  *         description: Number of tasks per page
- *
  *       - in: query
  *         name: completed
- *         required: false
  *         schema:
  *           type: boolean
  *           example: false
  *         description: Filter tasks by completion status
- *
  *       - in: query
  *         name: sort
- *         required: false
  *         schema:
  *           type: string
  *           example: id
  *         description: Field to sort by (id, title, completed)
- *
  *       - in: query
  *         name: order
- *         required: false
  *         schema:
  *           type: string
  *           example: desc
  *         description: Sort order (asc or desc)
- *
  *     responses:
  *       200:
  *         description: Successfully retrieved tasks
@@ -66,13 +55,12 @@ const authenticateToken = require('../middleware/authMiddleware');
  */
 router.get('/', authenticateToken, taskController.getTasks);
 
-
 /**
  * @swagger
  * /tasks:
  *   post:
  *     summary: Create a new task
- *     description: Adds a new task for the authenticated user
+ *     description: Adds a new task. Title must be between 3 and 255 characters.
  *     tags:
  *       - Tasks
  *     security:
@@ -88,22 +76,23 @@ router.get('/', authenticateToken, taskController.getTasks);
  *             properties:
  *               title:
  *                 type: string
- *                 example: Learn Swagger documentation
+ *                 example: Learn Joi validation
  *     responses:
  *       201:
  *         description: Task created successfully
+ *       400:
+ *         description: Validation error
  *       401:
  *         description: Unauthorized
  */
-router.post('/', authenticateToken, taskController.createTask);
-
+router.post('/', authenticateToken, validate(createTaskSchema), taskController.createTask);
 
 /**
  * @swagger
  * /tasks/{id}:
  *   put:
  *     summary: Update a task
- *     description: Update task title or completion status
+ *     description: Update task title or completion status. At least one field required.
  *     tags:
  *       - Tasks
  *     security:
@@ -131,13 +120,14 @@ router.post('/', authenticateToken, taskController.createTask);
  *     responses:
  *       200:
  *         description: Task updated successfully
+ *       400:
+ *         description: Validation error
  *       401:
  *         description: Unauthorized
  *       404:
  *         description: Task not found
  */
-router.put('/:id', authenticateToken, taskController.updateTask);
-
+router.put('/:id', authenticateToken, validate(updateTaskSchema), taskController.updateTask);
 
 /**
  * @swagger
@@ -165,6 +155,5 @@ router.put('/:id', authenticateToken, taskController.updateTask);
  *         description: Task not found
  */
 router.delete('/:id', authenticateToken, taskController.deleteTask);
-
 
 module.exports = router;

@@ -1,14 +1,16 @@
+// routes/authRoutes.js
 const express = require('express');
 const router = express.Router();
-
 const authController = require('../controllers/authController');
+const validate = require('../middleware/validateMiddleware');
+const { registerSchema, loginSchema } = require('../validators/authValidator');
 
 /**
  * @swagger
  * /auth/register:
  *   post:
  *     summary: Register a new user
- *     description: Creates a new user account in the system
+ *     description: Creates a new user account. Email must be valid, password minimum 6 characters.
  *     tags:
  *       - Authentication
  *     requestBody:
@@ -26,22 +28,21 @@ const authController = require('../controllers/authController');
  *                 example: test@example.com
  *               password:
  *                 type: string
- *                 example: 123456
+ *                 example: secret123
  *     responses:
  *       201:
  *         description: User registered successfully
  *       400:
- *         description: Invalid input
+ *         description: Validation error or email already registered
  */
-router.post('/register', authController.registerUser);
-
+router.post('/register', validate(registerSchema), authController.registerUser);
 
 /**
  * @swagger
  * /auth/login:
  *   post:
  *     summary: Login user
- *     description: Authenticates a user and returns a JWT token
+ *     description: Authenticates a user and returns a JWT token valid for 1 hour.
  *     tags:
  *       - Authentication
  *     requestBody:
@@ -59,14 +60,15 @@ router.post('/register', authController.registerUser);
  *                 example: test@example.com
  *               password:
  *                 type: string
- *                 example: 123456
+ *                 example: secret123
  *     responses:
  *       200:
- *         description: Login successful and JWT token returned
+ *         description: Login successful, JWT token returned
+ *       400:
+ *         description: Validation error
  *       401:
  *         description: Invalid email or password
  */
-router.post('/login', authController.loginUser);
-
+router.post('/login', validate(loginSchema), authController.loginUser);
 
 module.exports = router;

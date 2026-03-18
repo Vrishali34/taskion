@@ -35,8 +35,7 @@ const loginSchema = Joi.object({
     }),
 
   // No min() on login password intentionally
-  // We only check it exists — let bcrypt comparison handle the rest
-  // This avoids leaking information about password rules to attackers
+  // Avoids leaking password rules to attackers
   password: Joi.string()
     .required()
     .messages({
