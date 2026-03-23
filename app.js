@@ -24,7 +24,10 @@ const errorHandler = require('./middleware/errorHandler');
 // Helmet — sets secure HTTP response headers
 // Protects against clickjacking, XSS, MIME sniffing, and more
 // Also removes X-Powered-By header so Express is not advertised
-app.use(helmet());
+// contentSecurityPolicy disabled to allow Swagger UI to load correctly
+app.use(helmet({
+  contentSecurityPolicy: false
+}));
 
 // General rate limiter — applied to all routes
 // Allows 100 requests per 15 minutes per IP

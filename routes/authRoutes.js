@@ -34,6 +34,8 @@ const { registerSchema, loginSchema } = require('../validators/authValidator');
  *         description: User registered successfully
  *       400:
  *         description: Validation error or email already registered
+ *       429:
+ *         description: Too many requests, please try again after 15 minutes
  */
 router.post('/register', validate(registerSchema), authController.registerUser);
 
@@ -68,6 +70,8 @@ router.post('/register', validate(registerSchema), authController.registerUser);
  *         description: Validation error
  *       401:
  *         description: Invalid email or password
+ *       429:
+ *         description: Too many attempts, please try again after 15 minutes
  */
 router.post('/login', validate(loginSchema), authController.loginUser);
 
