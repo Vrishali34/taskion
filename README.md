@@ -13,6 +13,8 @@ A secure, production-style RESTful API for managing personal tasks — built wit
 - **Pagination** — Page through tasks with page and limit controls
 - **Filtering** — Filter tasks by completion status
 - **Sorting** — Sort tasks by id, title, or completed status
+- **Rate Limiting** — Brute force protection on all endpoints
+- **Security Headers** — Helmet.js securing HTTP response headers
 - **Swagger Docs** — Interactive API documentation at `/api-docs`
 - **Error Handling** — Centralized error handling with consistent responses
 - **Automated Testing** — 19 tests covering auth and task endpoints using Jest and Supertest
@@ -28,6 +30,7 @@ A secure, production-style RESTful API for managing personal tasks — built wit
 | Database | PostgreSQL |
 | Authentication | JWT + bcrypt |
 | Validation | Joi |
+| Security | Helmet.js + express-rate-limit |
 | Documentation | Swagger (OpenAPI 3.0) |
 | Testing | Jest + Supertest |
 | Configuration | dotenv |
@@ -216,6 +219,21 @@ http://localhost:5000/api-docs
 
 ---
 
+## 🛡️ Security
+
+### Rate Limiting
+- All routes — 100 requests per 15 minutes per IP
+- Auth routes — 10 requests per 15 minutes per IP
+- Exceeding the limit returns `429 Too Many Requests`
+
+### Helmet.js Headers
+- Removes `X-Powered-By` header to hide server technology
+- Sets `X-Content-Type-Options` to prevent MIME sniffing
+- Sets `X-Frame-Options` to prevent clickjacking
+- Sets `Content-Security-Policy` to prevent malicious content injection
+
+---
+
 ## ✅ Validation Rules
 
 ### Register
@@ -243,7 +261,7 @@ http://localhost:5000/api-docs
 - [x] Joi Request Validation
 - [x] Swagger Documentation
 - [x] Automated Testing with Jest
-- [ ] Cursor-based Pagination
+- [x] Rate Limiting + Security Headers
 - [ ] Docker Support
 - [ ] Winston Logging
 
