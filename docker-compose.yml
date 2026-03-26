@@ -1,0 +1,43 @@
+
+
+services:
+
+  # PostgreSQL database service
+  db:
+    image: postgres:16-alpine
+    container_name: taskdb_postgres
+    environment:
+      POSTGRES_USER: vrishalij
+      POSTGRES_PASSWORD: yourpassword
+      POSTGRES_DB: taskdb
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vrishalij -d taskdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Node.js API service
+  api:
+    build: .
+    container_name: taskmanager_api
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      DB_USER: vrishalij
+      DB_HOST: db
+      DB_NAME: taskdb
+      DB_PASSWORD: yourpassword
+      DB_PORT: 5432
+      JWT_SECRET: my_super_secret_key
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

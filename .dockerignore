@@ -1,0 +1,8 @@
+node_modules
+.env
+.env.test
+.git
+.gitignore
+PROJECT_CONTEXT
+README.md
+tests
