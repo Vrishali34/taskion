@@ -18,6 +18,7 @@ A secure, production-style RESTful API for managing personal tasks — built wit
 - **Swagger Docs** — Interactive API documentation at `/api-docs`
 - **Error Handling** — Centralized error handling with consistent responses
 - **Automated Testing** — 19 tests covering auth and task endpoints using Jest and Supertest
+- **Docker Support** — Fully containerized with Docker and docker-compose
 
 ---
 
@@ -33,6 +34,7 @@ A secure, production-style RESTful API for managing personal tasks — built wit
 | Security | Helmet.js + express-rate-limit |
 | Documentation | Swagger (OpenAPI 3.0) |
 | Testing | Jest + Supertest |
+| Containerization | Docker + docker-compose |
 | Configuration | dotenv |
 
 ---
@@ -70,6 +72,9 @@ task-manager-api
 │
 ├── app.js                    # Express app configuration
 ├── server.js                 # Server entry point
+├── Dockerfile                # Docker image instructions
+├── docker-compose.yml        # Multi-container orchestration
+├── init.sql                  # Database table initialization
 ├── .env                      # Environment variables (not committed)
 └── package.json
 ```
@@ -78,22 +83,37 @@ task-manager-api
 
 ## ⚙️ Getting Started
 
-### Prerequisites
-- Node.js v20 or higher
-- PostgreSQL
+### Option 1 — Run with Docker (Recommended)
 
-### 1. Clone the repository
+Prerequisites: Docker Desktop installed
+```bash
+git clone https://github.com/Vrishali34/task-manager-api.git
+cd task-manager-api
+docker compose up --build
+```
+
+Server runs at `http://localhost:5000`
+
+That's it. No manual database setup needed.
+
+---
+
+### Option 2 — Run Locally
+
+Prerequisites: Node.js v20+, PostgreSQL
+
+#### 1. Clone the repository
 ```bash
 git clone https://github.com/Vrishali34/task-manager-api.git
 cd task-manager-api
 ```
 
-### 2. Install dependencies
+#### 2. Install dependencies
 ```bash
 npm install
 ```
 
-### 3. Set up environment variables
+#### 3. Set up environment variables
 
 Create a `.env` file in the root directory:
 ```
@@ -106,9 +126,7 @@ DB_PORT=5432
 JWT_SECRET=your_jwt_secret_key
 ```
 
-### 4. Set up the database
-
-Run these SQL commands in your PostgreSQL client:
+#### 4. Set up the database
 ```sql
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
@@ -126,7 +144,7 @@ CREATE TABLE tasks (
 );
 ```
 
-### 5. Start the server
+#### 5. Start the server
 ```bash
 npm start
 ```
@@ -136,28 +154,6 @@ Server runs at `http://localhost:5000`
 ---
 
 ## 🧪 Running Tests
-
-The test suite uses Jest and Supertest with a separate isolated test database.
-
-### Set up test database
-```sql
-CREATE DATABASE taskdb_test;
-```
-
-Create tables in test database (same schema as above but in `taskdb_test`).
-
-Create a `.env.test` file:
-```
-PORT=5001
-DB_USER=your_db_user
-DB_HOST=localhost
-DB_NAME=taskdb_test
-DB_PASSWORD=your_db_password
-DB_PORT=5432
-JWT_SECRET=test_jwt_secret_key
-```
-
-### Run tests
 ```bash
 npm test
 ```
@@ -253,6 +249,20 @@ http://localhost:5000/api-docs
 
 ---
 
+## 🐳 Docker
+```bash
+# Start all services
+docker compose up --build
+
+# Stop all services
+docker compose down
+
+# Stop and remove volumes
+docker compose down -v
+```
+
+---
+
 ## 🗺️ Roadmap
 
 - [x] JWT Authentication
@@ -262,7 +272,7 @@ http://localhost:5000/api-docs
 - [x] Swagger Documentation
 - [x] Automated Testing with Jest
 - [x] Rate Limiting + Security Headers
-- [ ] Docker Support
+- [x] Docker Support
 - [ ] Winston Logging
 
 ---
