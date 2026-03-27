@@ -1,6 +1,6 @@
-# Task Manager API
+# Taskion
 
-A secure, production-style RESTful API for managing personal tasks — built with Node.js, Express.js, and PostgreSQL.
+A secure, production style REST API for managing personal tasks — built with Node.js, Express.js, and PostgreSQL.
 
 ---
 
@@ -43,7 +43,7 @@ A secure, production-style RESTful API for managing personal tasks — built wit
 
 ## 📁 Project Structure
 ```
-task-manager-api
+taskion
 │
 ├── config
 │   └── db.js                 # PostgreSQL connection pool
@@ -97,8 +97,8 @@ task-manager-api
 
 Prerequisites: Docker Desktop installed
 ```bash
-git clone https://github.com/Vrishali34/task-manager-api.git
-cd task-manager-api
+git clone https://github.com/Vrishali34/taskion.git
+cd taskion
 docker compose up --build
 ```
 
@@ -114,8 +114,8 @@ Prerequisites: Node.js v20+, PostgreSQL
 
 #### 1. Clone the repository
 ```bash
-git clone https://github.com/Vrishali34/task-manager-api.git
-cd task-manager-api
+git clone https://github.com/Vrishali34/taskion.git
+cd taskion
 ```
 
 #### 2. Install dependencies
