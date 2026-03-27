@@ -24,7 +24,7 @@ services:
   # Node.js API service
   api:
     build: .
-    container_name: taskmanager_api
+    container_name: taskion_api
     ports:
       - "5000:5000"
     environment:

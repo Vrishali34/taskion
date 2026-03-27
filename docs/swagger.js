@@ -5,14 +5,9 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Task Manager API',
+      title: 'taskion',
       version: '1.0.0',
-      description: `A secure RESTful API for managing personal tasks.
-      
-Features: JWT authentication, Joi request validation, pagination, filtering, and sorting.
-
-All task endpoints require a Bearer token in the Authorization header.
-Get your token by logging in via POST /auth/login.`
+      description: 'Taskion — A secure, production-style REST API for managing personal tasks. Built with Node.js, Express, and PostgreSQL.',
     },
     servers: [
       {

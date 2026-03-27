@@ -1,5 +1,5 @@
 {
-  "name": "task-manager-api",
+  "name": "taskion",
   "version": "1.0.0",
   "description": "A secure RESTful API for managing tasks with JWT authentication",
   "main": "server.js",
