@@ -12,6 +12,10 @@ A secure, production-style REST API for managing personal tasks — built with N
 | **Swagger Docs** | https://taskion.onrender.com/api-docs |
 | **GitHub** | https://github.com/Vrishali34/taskion |
 
+### API in Action
+
+![Live API](screenshots/taskion-live-register.png)
+
 ---
 
 ## ⚡ What Taskion Offers
@@ -96,6 +100,10 @@ taskion
 ├── tests
 │   ├── auth.test.js          # Auth endpoint tests
 │   └── task.test.js          # Task endpoint tests
+│
+├── screenshots
+│   ├── taskion-live-register.png
+│   └── taskion-jest-results.png
 │
 ├── logs
 │   ├── combined.log          # All logs (gitignored)
@@ -194,6 +202,8 @@ Expected output:
 Tests:       19 passed, 19 total
 Test Suites: 2 passed, 2 total
 ```
+
+![Test Results](screenshots/taskion-jest-results.png)
 
 ---
 
