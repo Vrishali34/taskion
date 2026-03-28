@@ -8,6 +8,9 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const app = express();
 
+// Trust Render's proxy — required for rate limiting to work correctly
+app.set('trust proxy', 1);
+
 // Swagger imports
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./docs/swagger');

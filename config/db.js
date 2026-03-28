@@ -1,12 +1,12 @@
 // config/db.js
 const { Pool } = require('pg');
 
-// Use DATABASE_URL for production (Supabase)
-// Use individual vars for local development
 const pool = process.env.DATABASE_URL
   ? new Pool({
       connectionString: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false }
+      ssl: { rejectUnauthorized: false },
+      // Force IPv4 to avoid IPv6 connection issues on Render
+      family: 4
     })
   : new Pool({
       user: process.env.DB_USER,
