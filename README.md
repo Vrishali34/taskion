@@ -12,6 +12,11 @@ A secure, production-style REST API for managing personal tasks — built with N
 | **Swagger Docs** | https://taskion.onrender.com/api-docs |
 | **GitHub** | https://github.com/Vrishali34/taskion |
 
+
+### Demo Video
+
+[Watch Demo Video](https://github.com/Vrishali34/taskion/releases/download/v1.0/TASKION.VIDEO.DEMO.mp4)
+
 ### API in Action
 
 ![Live API](screenshots/taskion-live-register.png)
